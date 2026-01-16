@@ -1,6 +1,12 @@
 /* ---------------------- */
 /* Reset básico           */
 /* ---------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,8 +15,16 @@
 }
 
 body {
-  background-color: #f7f7fb;
-  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ---------------------- */
@@ -39,6 +53,7 @@ body {
 /* Grid de estados de ánimo */
 /* ---------------------- */
 .moods {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
@@ -48,19 +63,36 @@ body {
 /* ---------------------- */
 /* Botones                */
 /* ---------------------- */
+
+.moods button {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+}
+
+
 .hover-btn {
-  height: 160px;
   border: none;
   border-radius: 16px;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: center;
   cursor: pointer;
   color: #1f1f1f;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  /* NUEVO */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
 }
+
 
 .hover-btn:hover {
   transform: scale(1.03);
@@ -124,22 +156,32 @@ body {
     font-size: 1.1rem;
     padding: 1rem;
   }
+}
 
-  /* Importante más compacto */
-  #importante {
-    margin: 16px 12px;
-    padding: 16px 20px;
-  }
-
-  #importante h4 {
-    font-size: 1rem;
-  }
-
+/* ---------------------- */
+/* Sección Importante     */
+/* ---------------------- */
+#importante {
+  background-color: #fff3cd;
+  border-top: 3px solid #ffb703;
+  padding: 14px 16px;
 }
 
 #importante::before {
   content: "⚠️ Importante";
   display: block;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  color: #5f4b00;
+}
+
+#importante p {
+  font-size: 1rem;
+  color: #5f4b00;
+  line-height: 1.4;
+}
+
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
