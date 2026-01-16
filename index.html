@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Pupa App</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f4c2c2">
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+
+  <body> 
+    <header>
+      <nav id="navbar">
+        <div id="logo">
+          <h1>¿Qué quiere/tiene Bren?</h1>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="moods">
+        <button id="merienda-time" class="hover-btn">MERIENDA TIME</button>
+        <button id="hambre" class="hover-btn">HAMBRE</button>
+        <button id="suenio" class="hover-btn">SUEÑO</button>
+        <button id="enojo" class="hover-btn">ENOJO</button>
+        <button id="molestia" class="hover-btn">MOLESTIA</button>
+        <button id="palabrasbonitas" class="hover-btn">PALABRAS BONITAS</button>
+        <button id="nopreguntas" class="hover-btn">NO RESPONDO PREGUNTAS</button>
+        <button id="beso" class="hover-btn">BESO EN LA FRENTE Y EN EL CACHETE</button>
+      </section>
+
+      <section id="importante">
+        <h4>
+          Cumplir con las peticiones lo más rápido posible, sino la creadora
+          de esta app no se hará cargo de las consecuencias ya que el destinatario fue
+          debidamente avisado.
+        </h4>
+      </section>
+
+    </main>
+
+      <audio id="audio-merienda-time" src="./sounds/merienda-time.wav" preload="auto"></audio>
+      <audio id="audio-hambre" src="./sounds/hambre.wav" preload="auto"></audio>
+      <audio id="audio-suenio" src="./sounds/suenio.wav" preload="auto"></audio>
+      <audio id="audio-enojo" src="./sounds/enojo.mp3" preload="auto"></audio>
+      <audio id="audio-molestia" src="./sounds/molestia.wav" preload="auto"></audio>
+      <audio id="audio-palabrasbonitas" src="./sounds/palabras-bonitas.mp3" preload="auto"></audio>
+      <audio id="audio-nopreguntas" src="./sounds/no-preguntas.mp3" preload="auto"></audio>
+      <audio id="audio-beso" src="./sounds/beso-cachete-frente.mp3" preload="auto"></audio>
+
+<script>
+  const botones = [
+    "merienda-time",
+    "hambre",
+    "suenio",
+    "enojo",
+    "molestia",
+    "palabrasbonitas",
+    "nopreguntas",
+    "beso"
+  ];
+
+  const audios = botones.map(id => document.getElementById(`audio-${id}`));
+
+  botones.forEach(id => {
+    document.getElementById(id).addEventListener("click", () => {
+      audios.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+
+      const audio = document.getElementById(`audio-${id}`);
+      audio.play();
+    });
+  });
+</script>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("Service Worker registrado"))
+      .catch(err => console.log("Error:", err));
+  }
+</script>
+
+  </body>
+    </html>

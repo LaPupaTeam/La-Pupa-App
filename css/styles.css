@@ -1,0 +1,145 @@
+/* ---------------------- */
+/* Reset básico           */
+/* ---------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background-color: #f7f7fb;
+  color: #333;
+}
+
+/* ---------------------- */
+/* Header y Título        */
+/* ---------------------- */
+#navbar {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+#logo {
+  text-align: center;
+  padding: 32px 16px 16px;
+}
+
+#logo h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1f1f1f;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+/* ---------------------- */
+/* Grid de estados de ánimo */
+/* ---------------------- */
+.moods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 16px;
+}
+
+/* ---------------------- */
+/* Botones                */
+/* ---------------------- */
+.hover-btn {
+  height: 160px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  color: #1f1f1f;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hover-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------------- */
+/* Colores por botón      */
+/* ---------------------- */
+#merienda-time { background-color: #e6ff7a; }
+#hambre { background-color: #1fb39a; }
+#suenio { background-color: #4fb3ff; }
+#enojo { background-color: #a83200; color: #fff; }
+#molestia { background-color: #f2a043; }
+#palabrasbonitas { background-color: #d48bd4; }
+#nopreguntas { background-color: #bdbdbd; }
+#beso { background-color: #e9b7b3; }
+
+/* ---------------------- */
+/* Sección Importante     */
+/* ---------------------- */
+#importante {
+  background-color: #fff3cd;
+  border-left: 6px solid #ffb703;
+  padding: 20px 24px;
+  margin: 24px 16px;
+  border-radius: 12px;
+}
+
+#importante h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5f4b00;
+  line-height: 1.5;
+}
+
+/* ---------------------- */
+/* Ajustes para móviles   */
+/* ---------------------- */
+@media (max-width: 400px) {
+  /* Título más pequeño */
+  #logo {
+    padding: 20px 12px 12px;
+  }
+
+  #logo h1 {
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Grid: 2 columnas */
+  .moods {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  /* Botones más pequeños para móviles */
+  .hover-btn {
+    height: 140px;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  /* Importante más compacto */
+  #importante {
+    margin: 16px 12px;
+    padding: 16px 20px;
+  }
+
+  #importante h4 {
+    font-size: 1rem;
+  }
+
+}
+
+#importante::before {
+  content: "⚠️ Importante";
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
