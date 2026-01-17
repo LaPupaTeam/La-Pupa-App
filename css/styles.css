@@ -153,7 +153,7 @@ main {
   /* Botones más pequeños para móviles */
   .hover-btn {
     height: 140px;
-    font-size: 1.1rem;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
     padding: 1rem;
   }
 }
@@ -185,4 +185,3 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
-
