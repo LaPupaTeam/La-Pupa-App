@@ -77,8 +77,8 @@ main {
 .hover-btn {
   border: none;
   border-radius: 16px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-weight: 700;
   cursor: pointer;
   color: #1f1f1f;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -185,3 +185,4 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
