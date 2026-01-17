@@ -5,8 +5,8 @@ const FILES_TO_CACHE = [
   "/index.html",
   "/manifest.json",
   "/css/styles.css",
-  "/iconos/icon-192.png",
-  "/iconos/icon-512.png",
+  "/icons/icon-192.png",
+  "/icons/icon-512.png",
   "/sounds/merienda-time.wav",
   "/sounds/hambre.wav",
   "/sounds/suenio.wav",
@@ -17,6 +17,10 @@ const FILES_TO_CACHE = [
   "/sounds/beso-cachete-frente.mp3"
 ];
 
+
+// --------------------
+// Install
+// --------------------
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -30,6 +34,9 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
+// --------------------
+// Activate
+// --------------------
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(names =>
@@ -41,25 +48,38 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
+// --------------------
+// Fetch
+// --------------------
 self.addEventListener("fetch", event => {
-  if (event.request.mode === "navigate") {
+  const { request } = event;
+
+  // HTML → Network first
+  if (request.mode === "navigate") {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match("/index.html"))
+      fetch(request).catch(() => caches.match("/index.html"))
     );
     return;
   }
 
-  // Cache first para assets y audios
+  // Assets y audios → Cache first + runtime caching
   event.respondWith(
-    caches.match(event.request).then(response => 
-      response || fetch(event.request).then(fetchRes => {
-        // Runtime caching opcional
-        if(event.request.url.startsWith(self.location.origin)){
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, fetchRes.clone()));
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cachedResponse = await cache.match(request);
+      if (cachedResponse) return cachedResponse;
+
+      try {
+        const fetchResponse = await fetch(request);
+        // solo cachear recursos de nuestro dominio
+        if (request.url.startsWith(self.location.origin)) {
+          cache.put(request, fetchResponse.clone());
         }
-        return fetchRes;
-      })
-    )
+        return fetchResponse;
+      } catch (err) {
+        console.warn("Fetch falló para", request.url, err);
+        return caches.match("/index.html"); // fallback
+      }
+    })()
   );
 });
-
