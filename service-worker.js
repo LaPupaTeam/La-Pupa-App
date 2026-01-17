@@ -5,8 +5,8 @@ const FILES_TO_CACHE = [
   "/index.html",
   "/manifest.json",
   "/css/styles.css",
-  "/iconos/icono-192.png",
-  "/iconos/icono-512.png",
+  "/iconos/icon-192.png",
+  "/iconos/icon-512.png",
   "/sounds/merienda-time.wav",
   "/sounds/hambre.wav",
   "/sounds/suenio.wav",
@@ -62,3 +62,4 @@ self.addEventListener("fetch", event => {
     )
   );
 });
+
