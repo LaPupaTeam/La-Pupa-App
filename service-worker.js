@@ -1,12 +1,12 @@
-const CACHE_NAME = "mi-app-v1";
+const CACHE_NAME = "mi-app-v2";
 
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/manifest.json",
   "/css/styles.css",
-
-  // audios
+  "/iconos/icono-192.png",
+  "/iconos/icono-512.png",
   "/sounds/merienda-time.wav",
   "/sounds/hambre.wav",
   "/sounds/suenio.wav",
@@ -19,22 +19,22 @@ const FILES_TO_CACHE = [
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => Promise.all(
+        FILES_TO_CACHE.map(file =>
+          cache.add(file).catch(err => console.warn("Archivo no cacheado:", file, err))
+        )
+      ))
+      .catch(err => console.error("SW install error:", err))
   );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(cacheNames =>
+    caches.keys().then(names =>
       Promise.all(
-        cacheNames.map(name => {
-          if (name !== CACHE_NAME) {
-            return caches.delete(name);
-          }
-        })
+        names.map(name => name !== CACHE_NAME ? caches.delete(name) : null)
       )
     )
   );
@@ -42,9 +42,23 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("/index.html"))
+    );
+    return;
+  }
+
+  // Cache first para assets y audios
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then(response => 
+      response || fetch(event.request).then(fetchRes => {
+        // Runtime caching opcional
+        if(event.request.url.startsWith(self.location.origin)){
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, fetchRes.clone()));
+        }
+        return fetchRes;
+      })
+    )
   );
 });
