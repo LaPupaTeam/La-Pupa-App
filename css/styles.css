@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #fafafa;
+  background: #ffffff;
 }
 
 main {
@@ -176,3 +176,15 @@ main {
   margin-bottom: 6px;
   color: #5f4b00;
 }
+
+#importante p {
+  font-size: 1rem;
+  color: #5f4b00;
+  line-height: 1.4;
+}
+
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
