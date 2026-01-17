@@ -2,7 +2,8 @@
   "name": "La Pupa App",
   "short_name": "La Pupa",
   "description": "App para identificar qué quiere o tiene Bren",
-  "start_url": "./index.html",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
@@ -11,12 +12,14 @@
     {
       "src": "iconos/icono-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "iconos/icono-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
