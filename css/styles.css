@@ -151,11 +151,13 @@ main {
   }
 
   /* Botones más pequeños para móviles */
-  .hover-btn {
-    height: 140px;
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
-    padding: 1rem;
-  }
+ .hover-btn {
+  height: 140px;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  padding: clamp(1.4rem, 3.5vw, 2rem);
+  line-height: 1.25;
+  text-wrap: balance;
+}
 }
 
 /* ---------------------- */
@@ -173,15 +175,4 @@ main {
   font-weight: 700;
   margin-bottom: 6px;
   color: #5f4b00;
-}
-
-#importante p {
-  font-size: 1rem;
-  color: #5f4b00;
-  line-height: 1.4;
-}
-
-body {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
 }
